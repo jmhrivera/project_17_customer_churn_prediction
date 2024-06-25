@@ -1,4 +1,4 @@
-from sklearn.preprocessing import OneHotEncoder, StandardScaler,
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 import pandas as pd
 import numpy as np
 from sklearn.impute import SimpleImputer
@@ -25,11 +25,9 @@ def correlation(data):
     sns.heatmap(corr, annot=False, cmap='coolwarm')
     plt.show()
     corr_results = (corr['EndDate']*100).sort_values(ascending=False)
-    corr_results
-#   selected_columns = corr_results[corr_results>19].index
-
-
-
+    print(abs(corr_results))
+    selected_columns = corr_results[abs(corr_results)>19].index
+    return selected_columns
 
 def feature_engineering(data):
     
@@ -48,17 +46,29 @@ def feature_engineering(data):
     # Imputando por medio de ML
 
     #######TEMPORAL 
+    numeric = data.select_dtypes(include='number').columns
+    categoric = data.select_dtypes(exclude='number').columns
+    
+    imp = SimpleImputer(missing_values=np.nan, strategy='mean')
+    impute_numeric = pd.DataFrame(imp.fit_transform(data[numeric]), columns=numeric)
+    
     imp = SimpleImputer(missing_values=np.nan, strategy='most_frequent')
-    imputed_merge = pd.DataFrame(imp.fit_transform(data), columns=data.columns)
+    impute_categoric = pd.DataFrame(imp.fit_transform(data[categoric]), columns=categoric)
 
     ## Transformación de datos _____________________
-
+    
     ## Pasando valores categóricos a numéricos
-    numeric = imputed_merge.select_dtypes(include='number')
-    categoric = imputed_merge.select_dtypes(exclude='number').columns
+    numeric_encoded = OHE(impute_categoric)
+    merge2= pd.concat([impute_numeric,numeric_encoded], axis=1)
 
-    OHE(categoric)
+    ## Análisis de correlación
+    selected_columns = correlation(merge2)
 
-x = feature_engineering(data)
-print(x)
+
+    X_train = merge2.drop(columns='EndDate')
+    y_train = merge2['EndDate']
+    X_test = merge2[merge2['EndDate']==0]
+    return merge2
+
+merge2 = feature_engineering(data)
 
