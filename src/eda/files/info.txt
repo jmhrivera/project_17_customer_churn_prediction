@@ -1,0 +1,27 @@
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 7043 entries, 0 to 7042
+Data columns (total 20 columns):
+ #   Column            Non-Null Count  Dtype         
+---  ------            --------------  -----         
+ 0   CustomerID        7043 non-null   object        
+ 1   BeginDate         7043 non-null   datetime64[ns]
+ 2   EndDate           7043 non-null   object        
+ 3   Type              7043 non-null   category      
+ 4   PaperlessBilling  7043 non-null   object        
+ 5   PaymentMethod     7043 non-null   category      
+ 6   MonthlyCharges    7043 non-null   float64       
+ 7   TotalCharges      7032 non-null   float64       
+ 8   InternetService   5517 non-null   object        
+ 9   OnlineSecurity    5517 non-null   object        
+ 10  OnlineBackup      5517 non-null   object        
+ 11  DeviceProtection  5517 non-null   object        
+ 12  TechSupport       5517 non-null   object        
+ 13  StreamingTV       5517 non-null   object        
+ 14  StreamingMovies   5517 non-null   object        
+ 15  Gender            7043 non-null   object        
+ 16  SeniorCitizen     7043 non-null   int64         
+ 17  Partner           7043 non-null   object        
+ 18  Dependents        7043 non-null   object        
+ 19  MultipleLines     6361 non-null   object        
+dtypes: category(2), datetime64[ns](1), float64(2), int64(1), object(14)
+memory usage: 1004.6+ KB

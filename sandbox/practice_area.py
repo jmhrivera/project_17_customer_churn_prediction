@@ -1,8 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-data = pd.read_csv('./datasets/merge.csv')
+describe = pd.read_csv('./src/eda/files/describe.csv')
+info = pd.read_csv('./src/eda/files/info.csv')
 
-data.columns
+pd.DataFrame(describe.info())
 
-plt.hist(data['SeniorCitizen'])
-plt.show()
+

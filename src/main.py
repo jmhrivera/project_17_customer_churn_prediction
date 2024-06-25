@@ -10,8 +10,7 @@ def main():
     preprocessed_data.to_csv('./datasets/merge.csv')
     eda_report(preprocessed_data)
 
-    # return eda
-    # return preprocessed_data
+    
 x = main()
 
 
