@@ -5,5 +5,10 @@ output_path = './src/models/results/model_report.csv'
 
 file = './datasets/merge.csv'
 
-pd.read_csv(file)
+data= pd.read_csv(file)
 
+columns = data.iloc[:,3:].columns
+
+
+for col in data[]:
+    print(data[col])

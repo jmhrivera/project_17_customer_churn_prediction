@@ -31,6 +31,7 @@ def correlation(data):
     selected_columns = corr_results[abs(corr_results)>19].index #Modificar a criterio
     return selected_columns
 
+
 def feature_engineering(data):
     
     # Eliminar columna customerID
@@ -41,23 +42,21 @@ def feature_engineering(data):
     data['EndDate'] = np.where(data['EndDate'] =='No',0,1)
 
     ## Imputación de valores __________________________
-
-    ##
     # Imputando por medio de ML
-    # Transformar columnas con OHE
-    # PENDIENTE
-    ##
+    ml_imputation(data)
 
-    # Imputación por Media 
-    #######TEMPORAL 
-    numeric = data.select_dtypes(include='number').columns
-    categoric = data.select_dtypes(exclude='number').columns
+
+   
+    # # Imputación por Media 
+    # #######TEMPORAL 
+    # numeric = data.select_dtypes(include='number').columns
+    # categoric = data.select_dtypes(exclude='number').columns
     
-    imp = SimpleImputer(missing_values=np.nan, strategy='mean')
-    impute_numeric = pd.DataFrame(imp.fit_transform(data[numeric]), columns=numeric)
+    # imp = SimpleImputer(missing_values=np.nan, strategy='mean')
+    # impute_numeric = pd.DataFrame(imp.fit_transform(data[numeric]), columns=numeric)
     
-    imp = SimpleImputer(missing_values=np.nan, strategy='most_frequent')
-    impute_categoric = pd.DataFrame(imp.fit_transform(data[categoric]), columns=categoric)
+    # imp = SimpleImputer(missing_values=np.nan, strategy='most_frequent')
+    # impute_categoric = pd.DataFrame(imp.fit_transform(data[categoric]), columns=categoric)
 
     ## Transformación de datos _____________________
     
