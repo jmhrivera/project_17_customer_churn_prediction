@@ -1,0 +1,5 @@
+model,best_estimator,best_train_score,validation_score
+Logreg,"Pipeline(steps=[('scale', StandardScaler()),
+                ('logreg',
+                 LogisticRegression(max_iter=10000, penalty=None,
+                                    solver='saga'))])",0.8441836756730365,0.6882996376160402

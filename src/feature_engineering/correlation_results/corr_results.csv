@@ -1,0 +1,36 @@
+,EndDate
+EndDate,100.0
+Type_Month-to-month,40.51029106879911
+PaymentMethod_Electronic check,30.191874901128497
+MonthlyCharges,19.335642223784717
+PaperlessBilling_Yes,19.182533166646884
+OnlineSecurity_No,17.122629194855232
+TechSupport_No,16.46735559015942
+Dependents_No,16.42214015797255
+SeniorCitizen,15.088932817647235
+Partner_No,15.044754495917632
+InternetService_Fiber optic,12.421382390260359
+OnlineBackup_No,8.225486893814256
+DeviceProtection_No,6.615979128028964
+StreamingTV_Yes,6.322774611875735
+StreamingMovies_Yes,6.138154801518696
+MultipleLines_Yes,4.010212769982612
+Gender_Female,0.8612095078997792
+Gender_Male,-0.8612095078997828
+MultipleLines_No,-4.010212769982615
+StreamingMovies_No,-6.13815480151869
+StreamingTV_No,-6.322774611875734
+DeviceProtection_Yes,-6.615979128028962
+OnlineBackup_Yes,-8.225486893814256
+PaymentMethod_Mailed check,-9.168283858842928
+PaymentMethod_Bank transfer (automatic),-11.79366719285387
+InternetService_DSL,-12.421382390260355
+PaymentMethod_Credit card (automatic),-13.430175066262839
+Partner_Yes,-15.04475449591762
+Dependents_Yes,-16.422140157972535
+TechSupport_Yes,-16.467355590159404
+OnlineSecurity_Yes,-17.122629194855232
+Type_One year,-17.78200183499079
+PaperlessBilling_No,-19.182533166646884
+TotalCharges,-19.94277150883145
+Type_Two year,-30.225346934965014

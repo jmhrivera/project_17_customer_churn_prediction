@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 
 #temporal
-data = pd.read_csv('./datasets/merge.csv') 
+# data = pd.read_csv('./datasets/merge.csv') 
 
 # Funciones
 def OHE(df):
@@ -21,12 +21,18 @@ def scaler(columns):
     return scaled_cols
 
 def correlation(data):
+
+    output_path = './src/feature_engineering/correlation_results/'
     corr = (data).corr()
+    plt.figure(figsize=(12,12))
     sns.heatmap(corr, annot=False, cmap='coolwarm')
-    plt.show()
+    plt.savefig(output_path+'corr_heatmap.png')
+    # plt.show()
     corr_results = (corr['EndDate']*100).sort_values(ascending=False)
-    print(abs(corr_results))
-    selected_columns = corr_results[abs(corr_results)>19].index
+    # print(abs(corr_results))
+    results = pd.DataFrame(corr_results)
+    results.to_csv(output_path+'corr_results.csv')
+    selected_columns = corr_results[abs(corr_results)>19].index #Modificar a criterio
     return selected_columns
 
 def feature_engineering(data):
@@ -40,11 +46,18 @@ def feature_engineering(data):
 
     # Mandar distribution type y method al final por tener 3 respuestas
 
-    # Transformar columnas con OHE
+
+
 
     ## Imputación de valores __________________________
-    # Imputando por medio de ML
 
+    ##
+    # Imputando por medio de ML
+    # Transformar columnas con OHE
+    # PENDIENTE
+    ##
+
+    # Imputación por Media 
     #######TEMPORAL 
     numeric = data.select_dtypes(include='number').columns
     categoric = data.select_dtypes(exclude='number').columns
@@ -64,11 +77,8 @@ def feature_engineering(data):
     ## Análisis de correlación
     selected_columns = correlation(merge2)
 
-
-    X_train = merge2.drop(columns='EndDate')
-    y_train = merge2['EndDate']
-    X_test = merge2[merge2['EndDate']==0]
+ 
     return merge2
 
-merge2 = feature_engineering(data)
+# merge2 = feature_engineering(data)
 
