@@ -5,10 +5,6 @@ from sklearn.impute import SimpleImputer
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-
-#temporal
-# data = pd.read_csv('./datasets/merge.csv') 
-
 # Funciones
 def OHE(df):
     encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
@@ -44,11 +40,6 @@ def feature_engineering(data):
     # Transformar end date en 0,1
     data['EndDate'] = np.where(data['EndDate'] =='No',0,1)
 
-    # Mandar distribution type y method al final por tener 3 respuestas
-
-
-
-
     ## Imputación de valores __________________________
 
     ##
@@ -77,8 +68,6 @@ def feature_engineering(data):
     ## Análisis de correlación
     selected_columns = correlation(merge2)
 
- 
-    return merge2
-
-# merge2 = feature_engineering(data)
+    return merge2[selected_columns]
+    # return merge2
 

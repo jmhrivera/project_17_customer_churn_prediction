@@ -15,8 +15,24 @@ from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
 from sklearn.compose import ColumnTransformer
 
-## Logistic Regression Model
 
+def imputation_params(model):
+    if model == 'linreg':
+        lr_pipeline = Pipeline([('linear_reg', LinearRegression())])
+        lr_param_grid = {}
+
+    if model == 'logreg':
+        lr_pipeline = Pipeline([('logreg', LogisticRegression(max_iter=10000))])
+        lr_param_grid = {
+        'logreg__penalty': [ 'l1', 'l2', None],  # Regularización
+        # 'logreg__C': [0.01, 0.1, 1, 10, 100],  # Fuerza de la regularización
+        'logreg__solver': ['saga'], # ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga'],  # Algoritmo de optimización
+        # 'logreg__l1_ratio': np.linspace(0, 1, 10)  # Solo si el solver es 'saga' y penalty es 'elasticnet'
+        }
+
+    return lr_pipeline, lr_param_grid
+
+## Logistic Regression Model
 def all_models():
 
     lr_pipeline = Pipeline([
@@ -45,6 +61,8 @@ def all_models():
     }
 
     xg = ['XGboost',xg_pipeline,xg_param_grid]
-    # models = [lr,xg]
-    models = [lr]
+    models = [lr,xg]
+    # models = [lr]
     return models
+
+

@@ -2,4 +2,21 @@ model,best_estimator,best_train_score,validation_score
 Logreg,"Pipeline(steps=[('scale', StandardScaler()),
                 ('logreg',
                  LogisticRegression(max_iter=10000, penalty=None,
-                                    solver='saga'))])",0.8441836756730365,0.6882996376160402
+                                    solver='saga'))])",0.8374644608947779,0.7247549368182081
+XGboost,"Pipeline(steps=[('scale', StandardScaler()),
+                ('xgboost',
+                 XGBClassifier(base_score=None, booster=None, callbacks=None,
+                               colsample_bylevel=None, colsample_bynode=None,
+                               colsample_bytree=None, device=None,
+                               early_stopping_rounds=None,
+                               enable_categorical=False, eval_metric=None,
+                               feature_types=None, gamma=None, grow_policy=None,
+                               importance_type=None,
+                               interaction_constraints=None, learning_rate=0.01,
+                               max_bin=None, max_cat_threshold=None,
+                               max_cat_to_onehot=None, max_delta_step=None,
+                               max_depth=7, max_leaves=None,
+                               min_child_weight=None, missing=nan,
+                               monotone_constraints=None, multi_strategy=None,
+                               n_estimators=1000, n_jobs=None,
+                               num_parallel_tree=None, random_state=1234, ...))])",0.9248773384449551,0.6971698560434872
