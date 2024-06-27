@@ -64,8 +64,6 @@ def training_imp_model(X,y,type,pipeline,param_grid,X_test=None):
         return
 
 
-
-
 def ml_imputation(data):
     # Depurando columnas innecesarias 
     data= data.drop(columns=['CustomerID','BeginDate']) #Eliminar cuando se vincule todo el código
@@ -93,19 +91,27 @@ def ml_imputation(data):
     # Columna para predicción linear
     pipeline ,param_grid = imputation_params('linreg')
     rmse = training_imp_model(X_train,y_train.iloc[:,0],'linreg', pipeline, param_grid, X_test)
+ 
+    # Imputando columnas lineares (TotalCharges)
+    imp = SimpleImputer(missing_values=np.nan, strategy='mean')
+    data['TotalCharges'] = imp.fit_transform(np.array(data['TotalCharges']).reshape(-1,1))
+
+    # Creamos un df con el mismo número de filas con valores nulos
+    imputated_nulls= pd.DataFrame(index=X_test.index)
 
     # Columnas para predicción logística 
     pipeline ,param_grid = imputation_params('logreg')
     logistic_columns = y_train.columns[1:]
 
-    for column in logistic_columns:
-         training_imp_model(X_train,y_train[column],'logreg', pipeline, param_grid, X_test)
+    # # Imputando columnas logísticas
+    for col in logistic_columns:
+         imputated_nulls[col] = training_imp_model(X_train,y_train[col],'logreg', pipeline, param_grid, X_test)     
          print('')
-    # pipeline,param_grid = imputation_params('log_reg')
 
-    # training_imp_model(X_train,y_train, pipeline, param_grid,X_test)
+    indices = imputated_nulls.index
+    columns = imputated_nulls.columns
+    data.loc[indices,columns] = imputated_nulls
 
-
-    return rmse
-
-rmse = ml_imputation(data)
+    return data
+ 
+data = ml_imputation(data)
