@@ -2,7 +2,7 @@ model,best_estimator,best_train_score,validation_score
 Logreg,"Pipeline(steps=[('scale', StandardScaler()),
                 ('logreg',
                  LogisticRegression(max_iter=10000, penalty='l1',
-                                    solver='saga'))])",0.8446163537159725,0.8104388224325648
+                                    solver='saga'))])",0.8446176447666907,0.8104335550885178
 XGboost,"Pipeline(steps=[('scale', StandardScaler()),
                 ('xgboost',
                  XGBClassifier(base_score=None, booster=None, callbacks=None,
