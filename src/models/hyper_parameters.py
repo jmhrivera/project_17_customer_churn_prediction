@@ -61,8 +61,41 @@ def all_models():
     }
 
     xg = ['XGboost',xg_pipeline,xg_param_grid]
-    models = [lr,xg]
-    # models = [lr]
+    
+    lgbm_pipeline = Pipeline([
+        ('scale', StandardScaler()),
+        # ('preprocessor', preprocessor), 80
+        ('lightgbm', LGBMClassifier())
+    ])
+
+    lgbm_param_grid = {
+        'lightgbm__max_depth': [7, 14],  # Profundidad máxima del árbol
+        'lightgbm__learning_rate': [0.01, 0.001],  # Tasa de aprendizaje
+        'lightgbm__n_estimators': [500, 1000],  # Número de árboles en el bosque
+        'lightgbm__num_leaves': [128, 256],  # Número de árboles en el bosque
+    }
+    lgbm = ['LGBM',lgbm_pipeline,lgbm_param_grid]
+        
+    
+    rf_pipeline = Pipeline([
+    ('scale', StandardScaler()),
+    # ('preprocessor', preprocessor),
+    ('random_forest', RandomForestClassifier(random_state=1234))])
+
+    # Crear el grid de parámetros para Random Forest
+    rf_param_grid = {
+        'random_forest__n_estimators': [100, 500, 1000],  # Número de árboles en el bosque
+        'random_forest__max_depth': [None, 10, 20, 30],  # Profundidad máxima del árbol
+        'random_forest__min_samples_split': [2, 5, 10],  # Número mínimo de muestras requeridas para dividir un nodo interno
+        'random_forest__min_samples_leaf': [1, 2, 4],  # Número mínimo de muestras requeridas para estar en un nodo hoja
+    }
+
+    # Evaluar el modelo con la función model_evaluation
+    rf = ['Random_Forest',rf_pipeline,rf_param_grid]
+        
+    # models = [lr,xg,lgbm,rf]
+    models = [lr,xg,lgbm]
+
     return models
 
 

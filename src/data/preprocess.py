@@ -26,5 +26,10 @@ def preprocess_data(data):
     merged_df = pd.merge(contract_df, internet_df, how='outer', on='CustomerID')
     merged_df = pd.merge(merged_df, personal_df, how='outer', on='CustomerID')
     merged_df = pd.merge(merged_df, phone_df, how='outer', on='CustomerID')
+
+    merged_df.to_csv('./datasets/merge.csv', index=False)
+
+    print('Dataframe created at route: /datasets/merge.csv ')
+
     return merged_df
 

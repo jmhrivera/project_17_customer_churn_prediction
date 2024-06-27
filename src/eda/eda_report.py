@@ -50,3 +50,5 @@ def eda_report(data):
 
     plt.tight_layout()
     fig2.savefig('./src/eda/files/categoric.png')
+
+    print('EDA report created at route: /src/eda/files')

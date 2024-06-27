@@ -1,15 +1,12 @@
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import StandardScaler
+from feature_engineering.ml_imputation import ml_imputation, OHE
 import pandas as pd
 import numpy as np
-from sklearn.impute import SimpleImputer
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
 # Funciones
-def OHE(df):
-    encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
-    encoded_columns = encoder.fit_transform(df)
-    return pd.DataFrame(encoded_columns, columns=encoder.get_feature_names_out(), index=df.index)
 
 def scaler(columns):
     scaler = StandardScaler()
@@ -17,8 +14,7 @@ def scaler(columns):
     return scaled_cols
 
 def correlation(data):
-
-    output_path = './src/feature_engineering/correlation_results/'
+    output_path = './src/feature_engineering/results/'
     corr = (data).corr()
     plt.figure(figsize=(12,12))
     sns.heatmap(corr, annot=False, cmap='coolwarm')
@@ -28,11 +24,15 @@ def correlation(data):
     # print(abs(corr_results))
     results = pd.DataFrame(corr_results)
     results.to_csv(output_path+'corr_results.csv')
-    selected_columns = corr_results[abs(corr_results)>19].index #Modificar a criterio
+    # selected_columns = corr_results[corr_results>25].index #Modificar a criterio
+    # selected_columns = corr_results[corr_results<-25].index #Modificar a criterio
+    selected_columns = corr_results[abs(corr_results)>17].index #Modificar a criterio
+
+
     return selected_columns
 
 
-def feature_engineering(data):
+def ft_engineering(data):
     
     # Eliminar columna customerID
     data = data.drop(columns=['CustomerID', 'BeginDate'])
@@ -41,32 +41,43 @@ def feature_engineering(data):
     # Transformar end date en 0,1
     data['EndDate'] = np.where(data['EndDate'] =='No',0,1)
 
+    # Transformamos las columnas, No,Yes en 0,1
+    yn_columns= ['OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport',
+       'StreamingTV', 'StreamingMovies', 'PaperlessBilling', 'Partner',
+       'Dependents', 'MultipleLines']
+
+    for col in data[yn_columns]:
+        data[col] = data[col].map({'Yes': 1, 'No': 0})
+
     ## Imputación de valores __________________________
     # Imputando por medio de ML
-    ml_imputation(data)
+    data = ml_imputation(data)
 
+    # # Imputación por Media _______
+    # En caso de querer imputar por media habilitar este espacio y deshabilitar imputación por ML
 
-   
-    # # Imputación por Media 
-    # #######TEMPORAL 
     # numeric = data.select_dtypes(include='number').columns
     # categoric = data.select_dtypes(exclude='number').columns
-    
     # imp = SimpleImputer(missing_values=np.nan, strategy='mean')
     # impute_numeric = pd.DataFrame(imp.fit_transform(data[numeric]), columns=numeric)
-    
     # imp = SimpleImputer(missing_values=np.nan, strategy='most_frequent')
     # impute_categoric = pd.DataFrame(imp.fit_transform(data[categoric]), columns=categoric)
 
     ## Transformación de datos _____________________
-    
     ## Pasando valores categóricos a numéricos
-    numeric_encoded = OHE(impute_categoric)
-    merge2= pd.concat([impute_numeric,numeric_encoded], axis=1)
+    numeric = data.select_dtypes(include='number')
+    categoric = data.select_dtypes(exclude='number')
 
+    numeric_encoded = OHE(categoric)
+    imputed_merge = pd.concat([numeric,numeric_encoded], axis=1)
+ 
     ## Análisis de correlación
-    selected_columns = correlation(merge2)
+    selected_columns = correlation(imputed_merge)
 
-    return merge2[selected_columns]
-    # return merge2
+    # return imputed_merge[selected_columns]
+    # Exportando df
+    output_path = './src/feature_engineering/results/'
+    imputed_merge.to_csv(output_path + 'imputed_df',index=False)
+
+    return imputed_merge[selected_columns]
 

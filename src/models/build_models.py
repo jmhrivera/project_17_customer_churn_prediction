@@ -4,7 +4,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.preprocessing import OneHotEncoder, StandardScaler, MinMaxScaler
 from sklearn.pipeline import Pipeline
 from imblearn.over_sampling import SMOTE
-from src.models.hyper_parameters import all_models
+from models.hyper_parameters import all_models
 
 
 def iterative_modeling(data):
@@ -36,14 +36,13 @@ def model_structure(data, pipeline, param_grid):
     # Scores
     best_score = gs.best_score_
     best_estimator = gs.best_estimator_
-    pred_val = gs.predict(X_val)
+    pred_val = gs.predict_proba(X_val)[:,1]
     score_val = evaluate_model(y_val,pred_val)
-
+    print(f'AU-ROC: {score_val}')
     results = best_estimator, best_score, score_val 
 
     return results
     
 def evaluate_model(y,y_pred):
     roc_auc = roc_auc_score(y,y_pred)
-    # print("AUC-ROC: ", roc_auc)
     return roc_auc

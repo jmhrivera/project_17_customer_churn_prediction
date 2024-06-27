@@ -1,9 +1,10 @@
 import os
-from src.data.load_data import load_datasets
-from src.data.preprocess import preprocess_data
-from src.eda.eda_report import eda_report
-from src.feature_engineering.feature_engineering import feature_engineering
-from src.models.build_models import iterative_modeling
+from data.load_data import load_datasets
+from data.preprocess import preprocess_data
+from eda.eda_report import eda_report
+from feature_engineering.feature_engineering import ft_engineering
+from models.build_models import iterative_modeling
+
 
 import pandas as pd
 
@@ -11,13 +12,15 @@ def main():
 
     data = load_datasets()
     preprocessed_data = preprocess_data(data)
-    preprocessed_data.to_csv('./datasets/merge.csv', index=False)
     eda_report(preprocessed_data)
-    processed_data = feature_engineering(preprocessed_data)
-    iterative_modeling(processed_data)
-    
 
+    processed_data = ft_engineering(preprocessed_data)
 
-x = main()
+    results = iterative_modeling(processed_data)
+    df_results = pd.DataFrame(results, columns=['model','best_estimator','best_train_score','validation_score'])
+    return df_results
+
+results = main()
+
 
 

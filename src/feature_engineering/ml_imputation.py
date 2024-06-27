@@ -1,17 +1,19 @@
 
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np
-from src.feature_engineering.feature_engineering import OHE, scaler
-from src.models.hyper_parameters import imputation_params
+from models.hyper_parameters import imputation_params
 from imblearn.over_sampling import SMOTE
+from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import  accuracy_score, root_mean_squared_error
 from sklearn.impute import SimpleImputer
 
-file = './datasets/merge.csv'
-data= pd.read_csv(file)
-
+# file = './datasets/merge.csv'
+# data= pd.read_csv(file)
+def OHE(df):
+    encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
+    encoded_columns = encoder.fit_transform(df)
+    return pd.DataFrame(encoded_columns, columns=encoder.get_feature_names_out(), index=df.index)
 
 def categoric_to_num(df):
     numeric = df.select_dtypes(include='number')
@@ -19,7 +21,6 @@ def categoric_to_num(df):
     numeric_encoded = OHE(categoric)
     imputed_merge = pd.concat([numeric,numeric_encoded], axis=1)
     return imputed_merge
-
 
 def training_imp_model(X,y,type,pipeline,param_grid,X_test=None):
 
@@ -55,7 +56,7 @@ def training_imp_model(X,y,type,pipeline,param_grid,X_test=None):
             print(f'Accuracy: : {acc*100:.2f}%') 
 
             if X_test is not None and acc>0.65:
-                print(f'modelo aceptado para {y.name}, prediciendo')
+                print(f'modelo aceptado para {y.name}, sustiyendo valores nulos')
                 pred = grid_search.predict(X_test)
                 return pred
 
@@ -65,9 +66,10 @@ def training_imp_model(X,y,type,pipeline,param_grid,X_test=None):
 
 
 def ml_imputation(data):
-    # Depurando columnas innecesarias 
-    data= data.drop(columns=['CustomerID','BeginDate']) #Eliminar cuando se vincule todo el código
-    data['EndDate'] = np.where(data['EndDate'] =='No',0,1)  #Eliminar cuando se vincule todo el código
+
+    # # Depurando columnas innecesarias 
+    # data= data.drop(columns=['CustomerID','BeginDate']) #Eliminar cuando se vincule todo el código
+    # data['EndDate'] = np.where(data['EndDate'] =='No',0,1)  #Eliminar cuando se vincule todo el código
 
     # Dividiento por filas sin nulos para el entrenamiento
     rows_without_nan = data.dropna()
@@ -93,7 +95,7 @@ def ml_imputation(data):
     rmse = training_imp_model(X_train,y_train.iloc[:,0],'linreg', pipeline, param_grid, X_test)
  
     # Imputando columnas lineares (TotalCharges)
-    imp = SimpleImputer(missing_values=np.nan, strategy='mean')
+    imp = SimpleImputer(missing_values=np.nan, strategy='median')
     data['TotalCharges'] = imp.fit_transform(np.array(data['TotalCharges']).reshape(-1,1))
 
     # Creamos un df con el mismo número de filas con valores nulos
@@ -112,6 +114,8 @@ def ml_imputation(data):
     columns = imputated_nulls.columns
     data.loc[indices,columns] = imputated_nulls
 
+    
+
     return data
  
-data = ml_imputation(data)
+# data = ml_imputation(data)
