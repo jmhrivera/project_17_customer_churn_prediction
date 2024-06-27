@@ -5,24 +5,26 @@ import math
 import sys
 
 def eda_report(data):
-    # Resumen de datos ___________________
+    '''Te EDA report will create some files to analyze the in deep the variables of the table.
+     The elements will be divided by categoric and numeric and some extra info will printed'''
 
-    # Creamos un reporte para describe 
+    # Data Summary ___________________
+
+    # Creating a describing report
     describe_result = data.describe()
 
-    # Exportamos describe
+    # Exporting the file
     with open('./src/eda/files/describe.txt', 'w') as f:
         f.write(describe_result.to_string())
 
-    # Exportamos info
+    # Exporting general info
     with open('./src/eda/files/info.txt','w') as f:
         sys.stdout = f
         data.info()
         sys.stdout = sys.__stdout__
        
-    # Grafico de variables ___________________
-    ## Mostrar variables numéricas
-
+    # Variables Chart ___________________
+    ## Plotting numeric chart
     numeric = data.select_dtypes(include='number')
     num_height = math.ceil(len(numeric.columns)/3)
     fig1, axes = plt.subplots(num_height, 3, figsize=(12,12))
@@ -34,12 +36,11 @@ def eda_report(data):
     plt.tight_layout()
     fig1.savefig('./src/eda/files/numeric.png')
 
-    # Mostrar variables categóricas
+    # Plotting categoric chart
     categoric = data.select_dtypes(exclude='number')
     categoric = categoric.iloc[:,2:]
     cat_height = math.ceil(len(categoric.columns)/3)
-    
-    # Graficamos    
+        
     fig2, axes = plt.subplots(cat_height, 3, figsize=(12,12))
 
     for column, ax in zip(categoric.columns, axes.flatten()):

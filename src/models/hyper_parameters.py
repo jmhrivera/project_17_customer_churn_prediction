@@ -1,22 +1,14 @@
-import pandas as pd
-import numpy as np
-import math
-import seaborn as sns
-import matplotlib.pyplot as plt
-from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression, LinearRegression
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.metrics import roc_auc_score, root_mean_squared_error, classification_report, accuracy_score, mean_absolute_percentage_error
-from sklearn.preprocessing import OneHotEncoder, StandardScaler, MinMaxScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.pipeline import Pipeline
 from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
-from imblearn.over_sampling import SMOTE
-from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
-from sklearn.compose import ColumnTransformer
-
+from sklearn.ensemble import RandomForestClassifier
 
 def imputation_params(model):
+    '''Function exclusivo for Imputing, will select the parameters for the type
+    of model selected'''
+
     if model == 'linreg':
         lr_pipeline = Pipeline([('linear_reg', LinearRegression())])
         lr_param_grid = {}
@@ -34,6 +26,8 @@ def imputation_params(model):
 
 ## Logistic Regression Model
 def all_models():
+    '''This function will host all the model parameters, can be used to iterate the
+    grid search '''
 
     lr_pipeline = Pipeline([
         ('scale', StandardScaler()),
@@ -69,10 +63,10 @@ def all_models():
     ])
 
     lgbm_param_grid = {
-        'lightgbm__max_depth': [7, 14],  # Profundidad máxima del árbol
-        'lightgbm__learning_rate': [0.01, 0.001],  # Tasa de aprendizaje
-        'lightgbm__n_estimators': [500, 1000],  # Número de árboles en el bosque
-        'lightgbm__num_leaves': [128, 256],  # Número de árboles en el bosque
+        'lightgbm__max_depth': [3, 5, 7],  # Profundidad máxima del árbol
+        'lightgbm__learning_rate': [0.1, 0.01, 0.001],  # Tasa de aprendizaje
+        'lightgbm__n_estimators': [100, 500, 1000],  # Número de árboles en el bosque
+        
     }
     lgbm = ['LGBM',lgbm_pipeline,lgbm_param_grid]
         
@@ -97,5 +91,4 @@ def all_models():
     models = [lr,xg,lgbm]
 
     return models
-
 

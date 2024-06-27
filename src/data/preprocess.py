@@ -2,6 +2,9 @@ import pandas as pd
 import numpy as np
 
 def preprocess_data(data):
+    '''This function will clean the data by setting removing duplicates, 
+    formatting the column types, names and removing incoherent data. The datasets
+    will be merged in one joined by the CustomerID'''
     contract_df = data[0] 
     internet_df = data[1] 
     personal_df = data[2] 
