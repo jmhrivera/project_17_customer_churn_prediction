@@ -172,3 +172,4 @@ results
 *.jpg
 *.txt
 !requirements.txt
+.env
