@@ -18,19 +18,19 @@
 - datasets
 - sandbox (Practice Area)
 - src (All the code is here)
-    main.py (This script will run in order the following scripts)
-        - data
-            - load_data.py
-            - preprocess.py
-        - eda
-            - files (EDA results)
-            - eda_report.py
-        - feature_engineering
-            - feature_engineering.py
-            - ml_imputation.py
-        - models
-            - build_model
-            - hyper_parameters
+  - main.py (This script will run in order the following scripts)
+  - data
+    - load_data.py
+    - preprocess.py
+  - eda
+    - files (EDA results)
+    - eda_report.py
+  - feature_engineering
+    - feature_engineering.py
+    - ml_imputation.py
+  - models
+    - build_model
+    - hyper_parameters
 
 
 # Contact
