@@ -36,3 +36,6 @@
 # Contact
 Email me at jm_hernandezr2@gmail.com
 
+<!-- TODO Revisar dependencias -->
+<!-- TODO Agregar .vscode -->
+<!-- TODO Podrías dividir tu carpeta datasets en datasets/input, datasets/intermediate, datasets/output -->
