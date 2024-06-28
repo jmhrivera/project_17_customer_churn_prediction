@@ -47,7 +47,7 @@ def ft_engineering(data):
     for col in data[yn_columns]:
         data[col] = data[col].map({'Yes': 1, 'No': 0})
 
-    # # Imputación por Media _______
+    # # Imputation by mean _______
     # Method 1 Imputing by SimpleImputer
     
     # Enable at criteria, if you do, please disable method 2
@@ -63,7 +63,6 @@ def ft_engineering(data):
     # Method 2 Imputing by Machine Learning Model
     data = ml_imputation(data)
 
-    
     ## Feature Engineering _____________________
     ## Tranforming categoric to numeric values
     numeric = data.select_dtypes(include='number')
