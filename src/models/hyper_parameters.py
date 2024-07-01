@@ -88,7 +88,8 @@ def all_models():
     rf = ['Random_Forest',rf_pipeline,rf_param_grid]
         
     # models = [lr,xg,lgbm,rf]
-    models = [lr,xg,lgbm]
+    # models = [lr,xg,lgbm]
+    models = [lr]
 
     return models
 

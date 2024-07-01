@@ -1,3 +1,8 @@
+# Files generated
+datasets/processed_datasets
+results/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

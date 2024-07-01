@@ -13,12 +13,14 @@ def eda_report(data):
     # Creating a describing report
     describe_result = data.describe()
 
+    eda_path = './results/eda_results/'
+
     # Exporting the file
-    with open('./src/eda/files/describe.txt', 'w') as f:
+    with open(eda_path+'describe.txt', 'w') as f:
         f.write(describe_result.to_string())
 
     # Exporting general info
-    with open('./src/eda/files/info.txt','w') as f:
+    with open(eda_path+'info.txt','w') as f:
         sys.stdout = f
         data.info()
         sys.stdout = sys.__stdout__
@@ -34,7 +36,7 @@ def eda_report(data):
         ax.set_title(f'{column} Histogram')
      
     plt.tight_layout()
-    fig1.savefig('./src/eda/files/numeric.png')
+    fig1.savefig(eda_path+'numeric.png')
 
     # Plotting categoric chart
     categoric = data.select_dtypes(exclude='number')
@@ -50,6 +52,6 @@ def eda_report(data):
         ax.set_ylabel('Conteo')
 
     plt.tight_layout()
-    fig2.savefig('./src/eda/files/categoric.png')
+    fig2.savefig(eda_path+'categoric.png')
 
-    print('EDA report created at route: /src/eda/files')
+    print(f'EDA report created at route: {eda_path}')

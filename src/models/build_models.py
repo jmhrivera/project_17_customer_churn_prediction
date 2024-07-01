@@ -11,7 +11,7 @@ def iterative_modeling(data):
     score and validation score'''
 
     models = all_models() 
-    output_path = './src/models/results/model_report.csv'
+    output_path = './results/model_results/model_report.csv'
     results = []
 
     # Iterating the models

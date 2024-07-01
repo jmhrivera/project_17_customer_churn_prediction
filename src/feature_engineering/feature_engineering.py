@@ -16,7 +16,7 @@ def correlation(data):
     by identifying the columns that have the highest positive and
     negative correlations with the `EndDate'.'''
     
-    output_path = './src/feature_engineering/results/'
+    output_path = './results/correlation_results/'
     corr = (data).corr()
     
     plt.figure(figsize=(12,12))
@@ -74,7 +74,8 @@ def ft_engineering(data):
     selected_columns = correlation(imputed_merge)
 
     # Exporting DataFrame
-    output_path = './src/feature_engineering/results/'
+
+    output_path = './datasets/output/'
     imputed_merge.to_csv(output_path + 'imputed_df',index=False)
 
     return imputed_merge[selected_columns]
