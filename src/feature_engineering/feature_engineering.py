@@ -1,10 +1,9 @@
 from sklearn.preprocessing import StandardScaler
-from feature_engineering.ml_imputation import ml_imputation, OHE
+from .ml_imputation import ml_imputation, OHE
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-
 
 def scaler(columns):
     '''Function to normalize numeric values'''

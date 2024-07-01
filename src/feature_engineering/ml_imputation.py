@@ -1,12 +1,12 @@
 
-import pandas as pd
-import numpy as np
-from models.hyper_parameters import imputation_params
+from src.models.hyper_parameters import imputation_params
 from imblearn.over_sampling import SMOTE
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import  accuracy_score, root_mean_squared_error
 from sklearn.impute import SimpleImputer
+import pandas as pd
+import numpy as np
 
 def OHE(df):
     '''Function to encode categoric values'''

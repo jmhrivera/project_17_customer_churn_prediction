@@ -1,8 +1,8 @@
-import pandas as pd    
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import roc_auc_score
 from imblearn.over_sampling import SMOTE
-from models.hyper_parameters import all_models
+from src.models.hyper_parameters import all_models
+import pandas as pd 
 
 
 def iterative_modeling(data):

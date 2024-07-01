@@ -1,8 +1,8 @@
-from data.load_data import load_datasets
-from data.preprocess import preprocess_data
-from eda.eda_report import eda_report
-from feature_engineering.feature_engineering import ft_engineering
-from models.build_models import iterative_modeling
+from src.data_loader.load_data import load_datasets
+from src.data_loader.preprocess import preprocess_data
+from src.eda.eda_report import eda_report
+from src.feature_engineering.feature_engineering import ft_engineering
+from src.models.build_models import iterative_modeling
 import pandas as pd
 
 def main():

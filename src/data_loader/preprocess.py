@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 def preprocess_data(data):
     '''This function will clean the data by setting removing duplicates, 
