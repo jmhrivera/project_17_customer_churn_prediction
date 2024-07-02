@@ -26,7 +26,7 @@ def correlation(data):
     corr_results = (corr['EndDate']*100).sort_values(ascending=False)
     results = pd.DataFrame(corr_results)
     results.to_csv(output_path+'corr_results.csv')
-    selected_columns = corr_results[abs(corr_results)>17].index #Modify ad criteria
+    selected_columns = corr_results[abs(corr_results)>10].index #Modify ad criteria
     return selected_columns
 
 

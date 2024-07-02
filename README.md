@@ -1,4 +1,4 @@
-# Project 17 FINAL PROJECT BOOTCAMP TRIPLETEN
+# Project 17 Final project TRIPLETEN
 
 - Objective: Predict customer cancellation rate
 - Model type: Classification
