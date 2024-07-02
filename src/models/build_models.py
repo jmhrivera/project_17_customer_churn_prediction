@@ -81,7 +81,7 @@ def build_model(X_train):
 
 def tens_flow(data):
     
-    # Defining element and objectivew
+    # Defining element and objective
     X_train = data.drop(columns='EndDate')
     y_train = data['EndDate']
     

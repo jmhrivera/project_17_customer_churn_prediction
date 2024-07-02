@@ -43,14 +43,19 @@ def eda_report(data):
     categoric = categoric.iloc[:,2:]
     cat_height = math.ceil(len(categoric.columns)/3)
         
-    fig2, axes = plt.subplots(cat_height, 3, figsize=(12,12))
+    fig2, axes = plt.subplots(cat_height, 3, figsize=(18,18))
 
     for column, ax in zip(categoric.columns, axes.flatten()):
         sns.countplot(x=column,data=categoric,ax=ax)
-        ax.set_title(f'Distribución de {column}')
+        ax.set_title(f'Distribución de {column}', fontsize=16)
         ax.set_xlabel('Categoría')
         ax.set_ylabel('Conteo')
+        
+        # Adding rotation to avoid overlay text
+        if column in ('EndDate','PaymentMethod'):
+            ax.tick_params(axis='x', labelrotation=45)
 
+            
     plt.tight_layout()
     fig2.savefig(eda_path+'categoric.png')
 

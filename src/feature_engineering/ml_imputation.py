@@ -3,7 +3,7 @@ from src.models.hyper_parameters import imputation_params
 from imblearn.over_sampling import SMOTE
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.metrics import  accuracy_score, root_mean_squared_error
+from sklearn.metrics import  accuracy_score, mean_squared_error
 from sklearn.impute import SimpleImputer
 import pandas as pd
 import numpy as np
@@ -36,7 +36,8 @@ def training_imp_model(X,y,type,pipeline,param_grid,X_test=None):
         grid_search.fit(X_train,y_train)
         print(grid_search.best_params_)
         y_pred = grid_search.predict(X_val)
-        rmse = root_mean_squared_error(y_val,y_pred)
+        # rmse = root_mean_squared_error(y_val,y_pred)
+        rmse = np.sqrt(mean_squared_error(y_val,y_pred))
         print("RMSE: ", rmse)
 
         ## Threshold

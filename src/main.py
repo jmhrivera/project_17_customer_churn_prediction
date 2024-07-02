@@ -1,7 +1,10 @@
 # In case of debugging enable and select your path
-# import sys
+import sys
 # path = 'path_of_the_project'
 # sys.path.append('path_of_the_project')
+# path= '/home/carnivurus/Documents/Tripleten/project17_final'
+# sys.path.append(path)
+
 
 from src.data_loader.load_data import load_datasets
 from src.data_loader.preprocess import preprocess_data
