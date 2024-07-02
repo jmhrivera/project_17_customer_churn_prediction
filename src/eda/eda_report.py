@@ -3,6 +3,7 @@ import seaborn as sns
 import pandas as pd
 import math
 import sys
+import os
 
 def eda_report(data):
     '''Te EDA report will create some files to analyze the in deep the variables of the table.
@@ -14,6 +15,9 @@ def eda_report(data):
     describe_result = data.describe()
 
     eda_path = './results/eda_results/'
+
+    if not os.path.exists(eda_path):
+        os.makedirs(eda_path)
 
     # Exporting the file
     with open(eda_path+'describe.txt', 'w') as f:

@@ -1,5 +1,6 @@
 import pandas as pd 
 import tensorflow as tf
+import os
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.optimizers import Adam
@@ -10,14 +11,17 @@ from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import SMOTE
 from src.models.hyper_parameters import all_models
 
-
 def iterative_modeling(data):
     '''This function will bring the hyper parameters from all_model() 
     and wil create a complete report of the best model, estimator, 
     score and validation score'''
 
     models = all_models() 
-    output_path = './results/model_results/model_report.csv'
+    
+    output_path = './results/model_results/'
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+
     results = []
 
     # Iterating the models
@@ -31,7 +35,7 @@ def iterative_modeling(data):
     
     # Concatening logistic models and neuronal network
     final_rev = pd.concat([results_df,tf_results])
-    final_rev.to_csv(output_path,index=False)
+    final_rev.to_csv(output_path+'model_report.csv',index=False)
 
     return final_rev[['model','validation_score']]
 

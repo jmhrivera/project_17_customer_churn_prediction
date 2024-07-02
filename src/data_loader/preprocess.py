@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 
 def preprocess_data(data):
     '''This function will clean the data by setting removing duplicates, 
@@ -29,7 +30,11 @@ def preprocess_data(data):
     merged_df = pd.merge(merged_df, personal_df, how='outer', on='CustomerID')
     merged_df = pd.merge(merged_df, phone_df, how='outer', on='CustomerID')
 
+    
     path = './datasets/output/'
+
+    if not os.path.exists(path):
+        os.makedirs(path)
 
     merged_df.to_csv(path+'merge.csv', index=False)
 
