@@ -177,4 +177,5 @@ results
 *.jpg
 *.txt
 !requirements.txt
+!instructions.txt
 .env
