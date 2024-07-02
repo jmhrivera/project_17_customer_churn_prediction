@@ -16,7 +16,7 @@ def imputation_params(model):
     if model == 'logreg':
         lr_pipeline = Pipeline([('logreg', LogisticRegression(max_iter=10000))])
         lr_param_grid = {
-        'logreg__penalty': [ 'l1', 'l2', None],  # Regularización
+        'logreg__penalty': [ 'l1', 'l2', 'none'],  # Regularización
         # 'logreg__C': [0.01, 0.1, 1, 10, 100],  # Fuerza de la regularización
         'logreg__solver': ['saga'], # ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga'],  # Algoritmo de optimización
         # 'logreg__l1_ratio': np.linspace(0, 1, 10)  # Solo si el solver es 'saga' y penalty es 'elasticnet'
@@ -35,7 +35,7 @@ def all_models():
     ])
 
     lr_param_grid = {
-            'logreg__penalty': [ 'l1', 'l2', None],  # Regularización
+            'logreg__penalty': [ 'l1', 'l2', 'none'],  # Regularización
             # 'logreg__C': [0.01, 0.1, 1, 10, 100],  # Fuerza de la regularización
             'logreg__solver': ['saga'], # ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga'],  # Algoritmo de optimización
             # 'logreg__l1_ratio': np.linspace(0, 1, 10)  # Solo si el solver es 'saga' y penalty es 'elasticnet'
@@ -79,7 +79,7 @@ def all_models():
     # Crear el grid de parámetros para Random Forest
     rf_param_grid = {
         'random_forest__n_estimators': [100, 500, 1000],  # Número de árboles en el bosque
-        'random_forest__max_depth': [None, 10, 20, 30],  # Profundidad máxima del árbol
+        'random_forest__max_depth': ['none', 10, 20, 30],  # Profundidad máxima del árbol
         'random_forest__min_samples_split': [2, 5, 10],  # Número mínimo de muestras requeridas para dividir un nodo interno
         'random_forest__min_samples_leaf': [1, 2, 4],  # Número mínimo de muestras requeridas para estar en un nodo hoja
     }
@@ -87,7 +87,7 @@ def all_models():
     # Evaluar el modelo con la función model_evaluation
     rf = ['Random_Forest',rf_pipeline,rf_param_grid]
         
-    # models = [lr,xg,lgbm,rf]
+    # models = [lr,xg,lgbm,rf] Activate to run all the models
     # models = [lr,xg,lgbm]
     models = [lr]
 

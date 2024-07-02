@@ -10,9 +10,9 @@ import numpy as np
 
 def OHE(df):
     '''Function to encode categoric values'''
-    encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
+    encoder = OneHotEncoder(sparse=False, handle_unknown='ignore')
     encoded_columns = encoder.fit_transform(df)
-    return pd.DataFrame(encoded_columns, columns=encoder.get_feature_names_out(), index=df.index)
+    return pd.DataFrame(encoded_columns, columns=encoder.get_feature_names(), index=df.index)
 
 def categoric_to_num(df):
     '''This function will divide the DataFrame into categoric and numeric values,
