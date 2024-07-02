@@ -1,5 +1,5 @@
 # Important 
-- Install the environment.yml to visualize de same results
+- Install the environment.yml to create an env with the specific libraries
 - pip install -r environment.yml or conda install -r environment.yml
 
 # Project 17 Final project TRIPLETEN
@@ -41,5 +41,3 @@
 
 # Contact
 Email me at jm_hernandezr2@gmail.com
-
-<!-- TODO Agregar .vscode -->
