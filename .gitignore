@@ -1,7 +1,6 @@
 # Files generated
-datasets/processed_datasets
-results/
-
+imputed_df.csv
+merge.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
