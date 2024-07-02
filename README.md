@@ -1,4 +1,4 @@
-# Important! 
+# Important 
 - Install the environment.yml to visualize de same results
 - pip install -r environment.yml or conda install -r environment.yml
 
