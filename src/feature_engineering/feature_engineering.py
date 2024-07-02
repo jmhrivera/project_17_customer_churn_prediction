@@ -79,7 +79,7 @@ def ft_engineering(data):
     # Exporting DataFrame
 
     output_path = './datasets/output/'
-    imputed_merge.to_csv(output_path + 'imputed_df',index=False)
+    imputed_merge.to_csv(output_path + 'imputed_df.csv',index=False)
 
     return imputed_merge[selected_columns]
 
