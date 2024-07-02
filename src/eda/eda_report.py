@@ -13,12 +13,14 @@ def eda_report(data):
     # Creating a describing report
     describe_result = data.describe()
 
+    eda_path = './results/eda_results/'
+
     # Exporting the file
-    with open('./src/eda/files/describe.txt', 'w') as f:
+    with open(eda_path+'describe.txt', 'w') as f:
         f.write(describe_result.to_string())
 
     # Exporting general info
-    with open('./src/eda/files/info.txt','w') as f:
+    with open(eda_path+'info.txt','w') as f:
         sys.stdout = f
         data.info()
         sys.stdout = sys.__stdout__
@@ -34,22 +36,27 @@ def eda_report(data):
         ax.set_title(f'{column} Histogram')
      
     plt.tight_layout()
-    fig1.savefig('./src/eda/files/numeric.png')
+    fig1.savefig(eda_path+'numeric.png')
 
     # Plotting categoric chart
     categoric = data.select_dtypes(exclude='number')
     categoric = categoric.iloc[:,2:]
     cat_height = math.ceil(len(categoric.columns)/3)
         
-    fig2, axes = plt.subplots(cat_height, 3, figsize=(12,12))
+    fig2, axes = plt.subplots(cat_height, 3, figsize=(18,18))
 
     for column, ax in zip(categoric.columns, axes.flatten()):
         sns.countplot(x=column,data=categoric,ax=ax)
-        ax.set_title(f'Distribución de {column}')
+        ax.set_title(f'Distribución de {column}', fontsize=16)
         ax.set_xlabel('Categoría')
         ax.set_ylabel('Conteo')
+        
+        # Adding rotation to avoid overlay text
+        if column in ('EndDate','PaymentMethod'):
+            ax.tick_params(axis='x', labelrotation=45)
 
+            
     plt.tight_layout()
-    fig2.savefig('./src/eda/files/categoric.png')
+    fig2.savefig(eda_path+'categoric.png')
 
-    print('EDA report created at route: /src/eda/files')
+    print(f'EDA report created at route: {eda_path}')

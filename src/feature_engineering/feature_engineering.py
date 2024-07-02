@@ -1,9 +1,10 @@
-from sklearn.preprocessing import StandardScaler
-from .ml_imputation import ml_imputation, OHE
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+from .ml_imputation import ml_imputation, OHE
 
 def scaler(columns):
     '''Function to normalize numeric values'''
@@ -16,7 +17,7 @@ def correlation(data):
     by identifying the columns that have the highest positive and
     negative correlations with the `EndDate'.'''
     
-    output_path = './src/feature_engineering/results/'
+    output_path = './results/correlation_results/'
     corr = (data).corr()
     
     plt.figure(figsize=(12,12))
@@ -26,7 +27,8 @@ def correlation(data):
     corr_results = (corr['EndDate']*100).sort_values(ascending=False)
     results = pd.DataFrame(corr_results)
     results.to_csv(output_path+'corr_results.csv')
-    selected_columns = corr_results[abs(corr_results)>17].index #Modify ad criteria
+    
+    selected_columns = corr_results[abs(corr_results)>17].index #Modify at criteria
     return selected_columns
 
 
@@ -57,6 +59,7 @@ def ft_engineering(data):
     # impute_numeric = pd.DataFrame(imp.fit_transform(data[numeric]), columns=numeric)
     # imp = SimpleImputer(missing_values=np.nan, strategy='most_frequent')
     # impute_categoric = pd.DataFrame(imp.fit_transform(data[categoric]), columns=categoric)
+    
 
     ## Impute Values __________________________
     # Method 2 Imputing by Machine Learning Model
@@ -74,7 +77,8 @@ def ft_engineering(data):
     selected_columns = correlation(imputed_merge)
 
     # Exporting DataFrame
-    output_path = './src/feature_engineering/results/'
+
+    output_path = './datasets/output/'
     imputed_merge.to_csv(output_path + 'imputed_df',index=False)
 
     return imputed_merge[selected_columns]

@@ -1,3 +1,8 @@
+# Files generated
+datasets/processed_datasets
+results/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -172,4 +177,5 @@ results
 *.jpg
 *.txt
 !requirements.txt
+!instructions.txt
 .env
