@@ -1,3 +1,7 @@
+# Files generated
+imputed_df.csv
+merge.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -163,7 +167,6 @@ cython_debug/
 
 *.ipynb
 __pycache__
-results
 *.csv
 *.xlsx
 *.pptx
@@ -172,4 +175,5 @@ results
 *.jpg
 *.txt
 !requirements.txt
+!instructions.txt
 .env

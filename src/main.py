@@ -1,8 +1,16 @@
-from data.load_data import load_datasets
-from data.preprocess import preprocess_data
-from eda.eda_report import eda_report
-from feature_engineering.feature_engineering import ft_engineering
-from models.build_models import iterative_modeling
+# In case of debugging enable and select your path
+import sys
+# path = 'path_of_the_project'
+# sys.path.append('path_of_the_project')
+# path= '/home/carnivurus/Documents/Tripleten/project17_final'
+# sys.path.append(path)
+
+
+from src.data_loader.load_data import load_datasets
+from src.data_loader.preprocess import preprocess_data
+from src.eda.eda_report import eda_report
+from src.feature_engineering.feature_engineering import ft_engineering
+from src.models.build_models import iterative_modeling
 import pandas as pd
 
 def main():
@@ -15,10 +23,9 @@ def main():
     eda_report(preprocessed_data) # Analysis stage
     processed_data = ft_engineering(preprocessed_data) # Feature engineering stage
     results = iterative_modeling(processed_data) # Modeling stage
-    df_results = pd.DataFrame(results, columns=['model','best_estimator','best_train_score','validation_score'])
-    return df_results
+    return results
 
 results = main()
 
-
+print(results)
 

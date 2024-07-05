@@ -1,9 +1,11 @@
-from sklearn.preprocessing import StandardScaler
-from feature_engineering.ml_imputation import ml_imputation, OHE
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+import os
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+from .ml_imputation import ml_imputation, OHE
 
 
 def scaler(columns):
@@ -16,8 +18,12 @@ def correlation(data):
     '''This function assists in selecting the columns for modeling 
     by identifying the columns that have the highest positive and
     negative correlations with the `EndDate'.'''
-    
-    output_path = './src/feature_engineering/results/'
+
+    output_path = './results/correlation_results/'
+
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+
     corr = (data).corr()
     
     plt.figure(figsize=(12,12))
@@ -27,7 +33,8 @@ def correlation(data):
     corr_results = (corr['EndDate']*100).sort_values(ascending=False)
     results = pd.DataFrame(corr_results)
     results.to_csv(output_path+'corr_results.csv')
-    selected_columns = corr_results[abs(corr_results)>17].index #Modify ad criteria
+    
+    selected_columns = corr_results[abs(corr_results)>17].index #Modify at criteria
     return selected_columns
 
 
@@ -47,7 +54,7 @@ def ft_engineering(data):
     for col in data[yn_columns]:
         data[col] = data[col].map({'Yes': 1, 'No': 0})
 
-    # # Imputación por Media _______
+    # # Imputation by mean _______
     # Method 1 Imputing by SimpleImputer
     
     # Enable at criteria, if you do, please disable method 2
@@ -58,12 +65,12 @@ def ft_engineering(data):
     # impute_numeric = pd.DataFrame(imp.fit_transform(data[numeric]), columns=numeric)
     # imp = SimpleImputer(missing_values=np.nan, strategy='most_frequent')
     # impute_categoric = pd.DataFrame(imp.fit_transform(data[categoric]), columns=categoric)
+    
 
     ## Impute Values __________________________
     # Method 2 Imputing by Machine Learning Model
     data = ml_imputation(data)
 
-    
     ## Feature Engineering _____________________
     ## Tranforming categoric to numeric values
     numeric = data.select_dtypes(include='number')
@@ -76,8 +83,9 @@ def ft_engineering(data):
     selected_columns = correlation(imputed_merge)
 
     # Exporting DataFrame
-    output_path = './src/feature_engineering/results/'
-    imputed_merge.to_csv(output_path + 'imputed_df',index=False)
+
+    output_path = './datasets/output/'
+    imputed_merge.to_csv(output_path + 'imputed_df.csv',index=False)
 
     return imputed_merge[selected_columns]
 
