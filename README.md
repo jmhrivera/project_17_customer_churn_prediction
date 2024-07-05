@@ -1,6 +1,8 @@
 # Important 
 - Install the environment.yml to create an env with the specific libraries
-- pip install -r environment.yml or conda install -r environment.yml
+- pip install -r requirements.txt or conda install -r requirements.txt
+
+<!-- TODO Ni  pip ni conda funcionan con environment.yml. Lo cambié por un requirements.txt -->
 
 # Project 17 Final project TRIPLETEN
 
@@ -41,3 +43,9 @@
 
 # Contact
 Email me at jm_hernandezr2@gmail.com
+
+
+<!-- TODO La carpeta results no está -->
+<!-- TODO Hay varios pycache. Te recomiendo ignorar todos esos. Los comiteaste por algún motivo especial? Si no, es mejor que los borres -->
+<!-- TODO Los archivos que hay que leer es mejor dejarlos como markdown, no txt. -->
+<!-- TODO En general tu README es un buen comienzo ;) Además de lo que ya escribí, falta que expliques cómo ejecutar tu proyecto. Cómo alguien podría usarlo? --> -->

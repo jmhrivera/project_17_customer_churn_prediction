@@ -2,9 +2,11 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+import os
 from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
 from .ml_imputation import ml_imputation, OHE
+
 
 def scaler(columns):
     '''Function to normalize numeric values'''
@@ -16,8 +18,12 @@ def correlation(data):
     '''This function assists in selecting the columns for modeling 
     by identifying the columns that have the highest positive and
     negative correlations with the `EndDate'.'''
-    
+
     output_path = './results/correlation_results/'
+
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+
     corr = (data).corr()
     
     plt.figure(figsize=(12,12))
@@ -79,7 +85,7 @@ def ft_engineering(data):
     # Exporting DataFrame
 
     output_path = './datasets/output/'
-    imputed_merge.to_csv(output_path + 'imputed_df',index=False)
+    imputed_merge.to_csv(output_path + 'imputed_df.csv',index=False)
 
     return imputed_merge[selected_columns]
 
