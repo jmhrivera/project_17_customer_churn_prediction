@@ -133,6 +133,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+juanma_env/
 
 # Spyder project settings
 .spyderproject
@@ -174,6 +175,7 @@ __pycache__
 *.jpeg
 *.jpg
 *.txt
+*.pyc
 !requirements.txt
 !instructions.txt
 .env

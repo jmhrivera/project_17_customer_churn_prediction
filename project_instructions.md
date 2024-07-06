@@ -63,3 +63,18 @@ These are the clarifying questions I would ask the company:
 
 ## Stage 7: Results Presentation
 - Summarize project outcomes and present the learning curve derived from the project.
+
+# Evaluation
+
+- Objective: Predict customer cancellation rate
+- Model type: Classification
+- Target feature: `'EndDate'` column is equal to `'No'`.
+- Main metric: AUC-ROC.
+- Additional metric: accuracy.
+- Evaluation criteria:
+- AUC-ROC < 0.75 — 0 SP
+- 0.75 ≤ AUC-ROC < 0.81 — 4 SP
+- 0.81 ≤ AUC-ROC < 0.85 — 4.5 SP
+- 0.85 ≤ AUC-ROC < 0.87 — 5 SP
+- 0.87 ≤ AUC-ROC < 0.88 — 5.5 SP
+- AUC-ROC ≥ 0.88 — 6 SP
